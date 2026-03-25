@@ -48,6 +48,15 @@ func UpdateUser(id int, user models.User) error {
 	return err
 }
 
+func Me(id int) (models.User, error) {
+	var user models.User
+
+	row := config.DB.QueryRow("SELECT id, name FROM users WHERE id = ?", id)
+
+	err := row.Scan(&user.ID, &user.Name)
+	return user, err
+}
+
 func DeleteUser(id int) error {
 	_, err := config.DB.Exec("DELETE FROM users WHERE id=?", id)
 	return err

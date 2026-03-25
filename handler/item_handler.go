@@ -32,12 +32,29 @@ func GetItems(c *gin.Context) {
 
 	c.JSON(http.StatusOK, items)
 }
+func GetAllItems(c *gin.Context) {
+	name := c.Query("name")       // ?name=keyboard
+	userID := c.Query("user_id") // ?user_id=1
+
+	items, err := repository.GetAllItems(name, userID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": items})
+}
 
 func DeleteItem(c *gin.Context) {
 	id := c.Param("id")
 	userID, _ := c.Get("user_id")
 
-	repository.DeleteItem(utils.StringToInt(id), userID.(int))
+	err := repository.DeleteItem(utils.StringToInt(id), userID.(int))
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "deleted"})
 }
