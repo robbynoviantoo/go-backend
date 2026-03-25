@@ -20,5 +20,9 @@ func SetupRoutes() *gin.Engine {
 	auth.PUT("/users/:id", handler.UpdateUser)
 	auth.DELETE("/users/:id", handler.DeleteUser)
 
+	auth.POST("/items", handler.CreateItem)
+	auth.GET("/items", handler.GetItems)
+	auth.DELETE("/items/:id", handler.DeleteItem)
+
 	return r
 }

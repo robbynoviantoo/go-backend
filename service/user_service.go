@@ -11,7 +11,10 @@ import (
 )
 
 func Register(user models.User) error {
-	hash, _ := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
+	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
+	if err != nil {
+		return err
+	}
 	user.Password = string(hash)
 
 	return repository.CreateUser(user)
