@@ -72,8 +72,8 @@ func DeleteUser(c *gin.Context) {
 }
 
 func Me(c *gin.Context) {
-	userID, exists := c.Get("user_id")
-	if !exists {
+	userID, e := c.Get("user_id")
+	if !e {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
 		return
 	}
