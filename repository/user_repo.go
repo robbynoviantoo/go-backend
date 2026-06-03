@@ -51,9 +51,9 @@ func UpdateUser(id int, user models.User) error {
 func Me(id int) (models.User, error) {
 	var user models.User
 
-	row := config.DB.QueryRow("SELECT id, name FROM users WHERE id = ?", id)
+	row := config.DB.QueryRow("SELECT id, name, email, password FROM users WHERE id = ?", id)
 
-	err := row.Scan(&user.ID, &user.Name)
+	err := row.Scan(&user.ID, &user.Name, &user.Email, &user.Password)
 	return user, err
 }
 

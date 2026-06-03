@@ -4,8 +4,8 @@ import (
 	"go-backend/handler"
 	"go-backend/middleware"
 
-	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func SetupRoutes() *gin.Engine {
@@ -32,6 +32,17 @@ func SetupRoutes() *gin.Engine {
 	// auth.GET("/items", handler.GetItems)
 	auth.GET("/items", handler.GetAllItems)
 	auth.DELETE("/items/:id", handler.DeleteItem)
+
+	auth.POST("/product-categories", handler.CreateProductCategory)
+	auth.GET("/product-categories", handler.GetProductCategories)
+	auth.PUT("/product-categories/:id", handler.UpdateProductCategory)
+	auth.DELETE("/product-categories/:id", handler.DeleteProductCategory)
+
+	auth.POST("/products", handler.CreateProduct)
+	auth.GET("/products", handler.GetProducts)
+	auth.GET("/products/:id", handler.GetProductByID)
+	auth.PUT("/products/:id", handler.UpdateProduct)
+	auth.DELETE("/products/:id", handler.DeleteProduct)
 
 	return r
 }
